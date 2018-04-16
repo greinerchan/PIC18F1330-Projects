@@ -1,0 +1,1 @@
+ build/default/debug/GSR.d  build/default/debug/GSR.p1:  GSR.c

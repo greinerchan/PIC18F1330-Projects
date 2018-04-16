@@ -1,0 +1,177 @@
+[p LITE_MODE AUTOSTATIC PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F690 ]
+[d frameptr 6 ]
+"92 C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\ADC2\src/ADC_Lab2.c
+[v _main main `(v  1 e 1 0 ]
+"114
+[v _Initialize Initialize `(v  1 e 1 0 ]
+"159
+[v _Get_Inputs Get_Inputs `(v  1 e 1 0 ]
+"179
+[v _Decide Decide `(v  1 e 1 0 ]
+"196
+[v _Do_Outputs Do_Outputs `(v  1 e 1 0 ]
+"208
+[v _Timing Timing `(v  1 e 1 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.41\sources\pic\eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"64 C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\ADC2\src/ADC_Lab2.c
+[v _toggle toggle `b  1 e 0 0 ]
+"65
+[v _TMR0_preload TMR0_preload `uc  1 e 1 0 ]
+"55 C:\Program Files (x86)\Microchip\xc8\v1.41\include\pic16f690.h
+[v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
+"207
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+[s S207 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 RC3 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+"262
+[u S216 . 1 `S207 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES216  1 e 1 @7 ]
+[s S228 . 1 `uc 1 RABIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 RABIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"329
+[u S237 . 1 `S228 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES237  1 e 1 @11 ]
+"1041
+[v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
+[s S156 . 1 `uc 1 ADON 1 0 :1:0 
+`uc 1 GO_nDONE 1 0 :1:1 
+`uc 1 CHS 1 0 :4:2 
+`uc 1 VCFG 1 0 :1:6 
+`uc 1 ADFM 1 0 :1:7 
+]
+"1077
+[s S162 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO 1 0 :1:1 
+`uc 1 CHS0 1 0 :1:2 
+`uc 1 CHS1 1 0 :1:3 
+`uc 1 CHS2 1 0 :1:4 
+`uc 1 CHS3 1 0 :1:5 
+]
+[s S169 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 nDONE 1 0 :1:1 
+]
+[s S172 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO_DONE 1 0 :1:1 
+]
+[u S175 . 1 `S156 1 . 1 0 `S162 1 . 1 0 `S169 1 . 1 0 `S172 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES175  1 e 1 @31 ]
+[s S110 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nRABPU 1 0 :1:7 
+]
+"1161
+[s S117 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+]
+[u S121 . 1 `S110 1 . 1 0 `S117 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES121  1 e 1 @129 ]
+[s S40 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"1273
+[u S46 . 1 `S40 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES46  1 e 1 @134 ]
+[s S68 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"1314
+[u S77 . 1 `S68 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES77  1 e 1 @135 ]
+[s S136 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 ADCS 1 0 :3:4 
+]
+"2563
+[s S139 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 ADCS0 1 0 :1:4 
+`uc 1 ADCS1 1 0 :1:5 
+`uc 1 ADCS2 1 0 :1:6 
+]
+[u S144 . 1 `S136 1 . 1 0 `S139 1 . 1 0 ]
+[v _ADCON1bits ADCON1bits `VES144  1 e 1 @159 ]
+[s S89 . 1 `uc 1 ANS0 1 0 :1:0 
+`uc 1 ANS1 1 0 :1:1 
+`uc 1 ANS2 1 0 :1:2 
+`uc 1 ANS3 1 0 :1:3 
+`uc 1 ANS4 1 0 :1:4 
+`uc 1 ANS5 1 0 :1:5 
+`uc 1 ANS6 1 0 :1:6 
+`uc 1 ANS7 1 0 :1:7 
+]
+"2953
+[u S98 . 1 `S89 1 . 1 0 ]
+[v _ANSELbits ANSELbits `VES98  1 e 1 @286 ]
+[s S55 . 1 `uc 1 ANS8 1 0 :1:0 
+`uc 1 ANS9 1 0 :1:1 
+`uc 1 ANS10 1 0 :1:2 
+`uc 1 ANS11 1 0 :1:3 
+]
+"3010
+[u S60 . 1 `S55 1 . 1 0 ]
+[v _ANSELHbits ANSELHbits `VES60  1 e 1 @287 ]
+"92 C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\ADC2\src/ADC_Lab2.c
+[v _main main `(v  1 e 1 0 ]
+{
+"104
+} 0
+"208
+[v _Timing Timing `(v  1 e 1 0 ]
+{
+"220
+} 0
+"114
+[v _Initialize Initialize `(v  1 e 1 0 ]
+{
+"151
+} 0
+"159
+[v _Get_Inputs Get_Inputs `(v  1 e 1 0 ]
+{
+"170
+} 0
+"196
+[v _Do_Outputs Do_Outputs `(v  1 e 1 0 ]
+{
+"200
+} 0
+"179
+[v _Decide Decide `(v  1 e 1 0 ]
+{
+"187
+} 0

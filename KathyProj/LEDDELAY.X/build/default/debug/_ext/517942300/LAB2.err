@@ -1,0 +1,6 @@
+Warning[207] ..\..\..\..\..\..\..\DOWNLOADS\LAB2.ASM 152 : Found label after column 1. (Light)
+Warning[207] ..\..\..\..\..\..\..\DOWNLOADS\LAB2.ASM 157 : Found label after column 1. (Switch_Pushed)
+Warning[207] ..\..\..\..\..\..\..\DOWNLOADS\LAB2.ASM 158 : Found label after column 1. (StartX)
+Warning[207] ..\..\..\..\..\..\..\DOWNLOADS\LAB2.ASM 166 : Found label after column 1. (WaitMore1)
+Warning[207] ..\..\..\..\..\..\..\DOWNLOADS\LAB2.ASM 175 : Found label after column 1. (StartY)
+Warning[207] ..\..\..\..\..\..\..\DOWNLOADS\LAB2.ASM 183 : Found label after column 1. (WaitMore2)

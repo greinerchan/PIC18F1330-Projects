@@ -1,0 +1,41 @@
+MPLINK 5.08, LINKER
+Linker Error Map File - Created Fri Feb 17 18:43:56 2017
+
+*Warning* - This is only a partial map file due to a link time error.
+   Only sections which were allocated prior to the error are shown below.
+
+CODEPAGES:
+    Memory      Start        End              Section    Address Size(Bytes)
+ ---------  ---------  ---------            ---------  ---------  ---------
+      page     0x0000     0x1fff         RESET_VECTOR     0x0000     0x0004
+                                               .cinit     0x0004     0x0002
+                                        HI_INT_VECTOR     0x0008     0x0002
+                                       LOW_INT_VECTOR     0x0018     0x0002
+                                                .code     0x001a     0x01ce
+
+    idlocs     0x0000     0x0007                                           
+
+    config     0x0000     0x000d .config_300001_BUILD/DEFAULT/PRODUCTION/_EXT/14     0x0001     0x0001
+                                 .config_300003_BUILD/DEFAULT/PRODUCTION/_EXT/14     0x0003     0x0001
+
+     devid     0xfffe     0xffff                                           
+
+    eedata     0x0000     0x007f          DATA_EEPROM     0x0000     0x0010
+
+
+SHAREBANKS:
+
+DATABANKS:
+    Memory      Start        End              Section    Address Size(Bytes)
+ ---------  ---------  ---------            ---------  ---------  ---------
+      gpr0     0x0080     0x00ff               .udata     0x0080     0x0006
+
+
+ACCESSBANKS:
+    Memory      Start        End              Section    Address Size(Bytes)
+ ---------  ---------  ---------            ---------  ---------  ---------
+ accessram     0x0000     0x007f           .udata_acs     0x0000     0x0001
+
+ accesssfr     0x0f80     0x0fff                                           
+
+

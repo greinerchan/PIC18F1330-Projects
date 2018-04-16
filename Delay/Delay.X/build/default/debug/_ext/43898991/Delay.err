@@ -1,0 +1,2 @@
+Warning[203] ..\..\DELAY.ASM 136 : Found opcode in column 1. (MOVLW)
+Warning[203] ..\..\DELAY.ASM 137 : Found opcode in column 1. (MOVWF)

@@ -1,0 +1,63 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Wed Mar 01 14:34:33 2017
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+             RESET_VECTOR       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+            HI_INT_VECTOR       code   0x000008    program   0x000002
+           LOW_INT_VECTOR       code   0x000018    program   0x000002
+                    .code       code   0x00001a    program   0x000034
+.config_300001_BUILD/DEFAULT/DEBUG/_EXT/4389899    romdata   0x300001    program   0x000001
+              DATA_EEPROM       code   0xf00000    program   0x000010
+               .udata_acs      udata   0x000000       data   0x000001
+                   .udata      udata   0x000080       data   0x000005
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000005      
+                            0x000008    0x000009      
+                            0x000018    0x00004d      
+                            0x300001    0x300001      
+                            0xf00000    0xf0000f      
+            79 out of 8344 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static ..\..\Delay.ASM          
+                   LowInt   0x00001c    program     static ..\..\Delay.ASM          
+                     Main   0x000036    program     static ..\..\Delay.ASM          
+              Start_Inner   0x00003e    program     static ..\..\Delay.ASM          
+              Start_Outer   0x00003a    program     static ..\..\Delay.ASM          
+                 BSR_TEMP   0x000082       data     static ..\..\Delay.ASM          
+                  EXAMPLE   0x000000       data     static ..\..\Delay.ASM          
+         Loops_Left_Inner   0x000083       data     static ..\..\Delay.ASM          
+         Loops_Left_Outer   0x000084       data     static ..\..\Delay.ASM          
+              STATUS_TEMP   0x000081       data     static ..\..\Delay.ASM          
+                WREG_TEMP   0x000080       data     static ..\..\Delay.ASM          
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static ..\..\Delay.ASM          
+                   LowInt   0x00001c    program     static ..\..\Delay.ASM          
+                     Main   0x000036    program     static ..\..\Delay.ASM          
+              Start_Outer   0x00003a    program     static ..\..\Delay.ASM          
+              Start_Inner   0x00003e    program     static ..\..\Delay.ASM          
+                  EXAMPLE   0x000000       data     static ..\..\Delay.ASM          
+                WREG_TEMP   0x000080       data     static ..\..\Delay.ASM          
+              STATUS_TEMP   0x000081       data     static ..\..\Delay.ASM          
+                 BSR_TEMP   0x000082       data     static ..\..\Delay.ASM          
+         Loops_Left_Inner   0x000083       data     static ..\..\Delay.ASM          
+         Loops_Left_Outer   0x000084       data     static ..\..\Delay.ASM          
+
+

@@ -1,0 +1,69 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Wed Mar 01 14:41:13 2017
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+             RESET_VECTOR       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+            HI_INT_VECTOR       code   0x000008    program   0x000002
+           LOW_INT_VECTOR       code   0x000018    program   0x000002
+                    .code       code   0x00001a    program   0x000068
+.config_300001_BUILD/DEFAULT/PRODUCTION/TIMER.O    romdata   0x300001    program   0x000001
+.config_300003_BUILD/DEFAULT/PRODUCTION/TIMER.O    romdata   0x300003    program   0x000001
+              DATA_EEPROM       code   0xf00000    program   0x000010
+               .udata_acs      udata   0x000000       data   0x000001
+                   .udata      udata   0x000080       data   0x000004
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000005      
+                            0x000008    0x000009      
+                            0x000018    0x000081      
+                            0x300001    0x300001      
+                            0x300003    0x300003      
+                            0xf00000    0xf0000f      
+            132 out of 8344 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    AGAIN   0x00007a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                    DELAY   0x000078    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                  HighInt   0x00001a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                   LowInt   0x00001c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                     Main   0x000036    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+        Switch_Not_Pushed   0x000074    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+            Switch_Pushed   0x000064    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                      aaa   0x00005e    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                 BSR_TEMP   0x000082       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+              Counts_Left   0x000083       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                  EXAMPLE   0x000000       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+              STATUS_TEMP   0x000081       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                WREG_TEMP   0x000080       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                   LowInt   0x00001c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                     Main   0x000036    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                      aaa   0x00005e    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+            Switch_Pushed   0x000064    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+        Switch_Not_Pushed   0x000074    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                    DELAY   0x000078    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                    AGAIN   0x00007a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                  EXAMPLE   0x000000       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                WREG_TEMP   0x000080       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+              STATUS_TEMP   0x000081       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+                 BSR_TEMP   0x000082       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+              Counts_Left   0x000083       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\timer\timer.X\timer.ASM
+
+

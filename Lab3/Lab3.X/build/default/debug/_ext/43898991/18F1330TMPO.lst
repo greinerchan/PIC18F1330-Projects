@@ -1,0 +1,913 @@
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;******************************************************************************
+                      00002 ;   This file is a basic template for creating relocatable assembly code for  *
+                      00003 ;   a PIC18F1330. Copy this file into your project directory and modify or    *
+                      00004 ;   add to it as needed.                                                      *
+                      00005 ;                                                                             *
+                      00006 ;   The PIC18FXXXX architecture allows two interrupt configurations. This     *
+                      00007 ;   template code is written for priority interrupt levels and the IPEN bit   *
+                      00008 ;   in the RCON register must be set to enable priority levels. If IPEN is    *
+                      00009 ;   left in its default zero state, only the interrupt vector at 0x008 will   *
+                      00010 ;   be used and the WREG_TEMP, BSR_TEMP and STATUS_TEMP variables will not    *
+                      00011 ;   be needed.                                                                *
+                      00012 ;                                                                             *
+                      00013 ;   Refer to the MPASM User's Guide for additional information on the         *
+                      00014 ;   features of the assembler and linker.                                     *
+                      00015 ;                                                                             *
+                      00016 ;******************************************************************************
+                      00017 ;                                                                             *
+                      00018 ;    Filename:                                                                *
+                      00019 ;    Date:                                                                    *
+                      00020 ;    File Version:                                                            *
+                      00021 ;                                                                             *
+                      00022 ;    Author:                                                                  *
+                      00023 ;    Company:                                                                 *
+                      00024 ;                                                                             * 
+                      00025 ;******************************************************************************
+                      00026 ;                                                                             *
+                      00027 ;    Files required: P18F1330.INC                                             *
+                      00028 ;                                                                             *
+                      00029 ;******************************************************************************
+                      00030 
+                      00031         LIST P=18F1330, F=INHX32 ;directive to define processor and file format
+                      00032         #include <P18F1330.INC>  ;processor specific variable definitions
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Nov 17 2016
+                      00005 ;  MPASM PIC18F1330 processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2016 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      01120         LIST
+                      00033 
+                      00034 ;******************************************************************************
+                      00035 ;Configuration bits
+                      00036 ;Microchip has changed the format for defining the configuration bits, please 
+                      00037 ;see the .inc file for futher details on notation.  Below are a few examples.
+                      00038 
+                      00039 
+                      00040 
+                      00041 ;   Oscillator Selection:
+                      00042     CONFIG      OSC = INTIO1
+                      00043     CONFIG WDT=OFF
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00044 
+                      00045 
+                      00046 
+                      00047 
+                      00048 ;******************************************************************************
+                      00049 ;Variable definitions
+                      00050 ; These variables are only needed if low priority interrupts are used. 
+                      00051 ; More variables may be needed to store other special function registers used
+                      00052 ; in the interrupt routines.
+                      00053 
+                      00054                 UDATA
+                      00055 
+000000                00056 WREG_TEMP       RES     1       ;variable in RAM for context saving 
+000001                00057 STATUS_TEMP     RES     1       ;variable in RAM for context saving
+000002                00058 BSR_TEMP        RES     1       ;variable in RAM for context saving
+  000000C8            00059 Delay_Value_Outer EQU d'200'
+  000000C8            00060 Delay_Value_Inner EQU d'200'
+000003                00061 Loops_Left_Inner  RES   1
+000004                00062 Loops_Left_Outer  RES   1
+000005                00063 Counts_Left       RES   1
+                      00064                 UDATA_ACS
+                      00065 
+000000                00066 EXAMPLE         RES     1       ;example of a variable in access RAM
+                      00067 
+                      00068 ;******************************************************************************
+                      00069 ;EEPROM data
+                      00070 ; Data to be programmed into the Data EEPROM is defined here
+                      00071 
+                      00072 DATA_EEPROM     CODE    0xf00000
+                      00073 
+F00000 6554 7473 4420 00074                 DE      "Test Data",0,1,2,3,4,5
+       7461 0061 0201 
+       0403 0005 
+                      00075 
+                      00076 ;******************************************************************************
+                      00077 ;Reset vector
+                      00078 ; This code will start executing when a reset occurs.
+                      00079 
+                      00080 RESET_VECTOR    CODE    0x0000
+                      00081 
+000000 EF?? F???      00082                 goto    Main            ;go to start of main code
+                      00083 
+                      00084 ;******************************************************************************
+                      00085 ;High priority interrupt vector
+                      00086 ; This code will start executing when a high priority interrupt occurs or
+                      00087 ; when any interrupt occurs if interrupt priorities are not enabled.
+                      00088 
+                      00089 HI_INT_VECTOR   CODE    0x0008
+                      00090 
+000008 D???           00091                 bra     HighInt         ;go to high priority interrupt routine
+                      00092 
+                      00093 ;******************************************************************************
+                      00094 ;Low priority interrupt vector
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00095 ; This code will start executing when a low priority interrupt occurs.
+                      00096 ; This code can be removed if low priority interrupts are not used.
+                      00097 
+                      00098 LOW_INT_VECTOR  CODE    0x0018
+                      00099 
+000018 D???           00100                 bra     LowInt          ;go to low priority interrupt routine
+                      00101 
+                      00102 ;******************************************************************************
+                      00103 ;High priority interrupt routine
+                      00104 ; The high priority interrupt code is placed here.
+                      00105 
+                      00106                 CODE
+                      00107 
+000000                00108 HighInt:
+                      00109 
+                      00110 ;       *** high priority interrupt code goes here ***
+                      00111 
+                      00112 
+000000 0011           00113                 retfie  FAST
+                      00114 
+                      00115 ;******************************************************************************
+                      00116 ;Low priority interrupt routine
+                      00117 ; The low priority interrupt code is placed here.
+                      00118 ; This code can be removed if low priority interrupts are not used.
+                      00119 
+000002                00120 LowInt:
+000002 CFD8 F???      00121                 movff   STATUS,STATUS_TEMP      ;save STATUS register
+000006 CFE8 F???      00122                 movff   WREG,WREG_TEMP          ;save working register
+00000A CFE0 F???      00123                 movff   BSR,BSR_TEMP            ;save BSR register
+                      00124 
+                      00125 ;       *** low priority interrupt code goes here ***
+                      00126 
+                      00127 
+00000E C??? FFE0      00128                 movff   BSR_TEMP,BSR            ;restore BSR register
+000012 C??? FFE8      00129                 movff   WREG_TEMP,WREG          ;restore working register
+000016 C??? FFD8      00130                 movff   STATUS_TEMP,STATUS      ;restore STATUS register
+00001A 0010           00131                 retfie
+                      00132 
+                      00133 ;******************************************************************************
+                      00134 ;Start of main program
+                      00135 ; The main program code is placed here.
+                      00136 
+00001C                00137 Main:
+Warning[203]: Found opcode in column 1. (MOVLW)
+00001C 0E7C           00138 MOVLW 7C
+Warning[203]: Found opcode in column 1. (MOVWF)
+00001E 6ED3           00139 MOVWF OSCCON
+Warning[203]: Found opcode in column 1. (BCF)
+000020 9293           00140 BCF TRISB,1
+Warning[203]: Found opcode in column 1. (BSF)
+000022 8892           00141 BSF TRISA,4
+Warning[203]: Found opcode in column 1. (BSF)
+000024 8ED5           00142 BSF T0CON,7
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BSF)
+000026 8CD5           00143 BSF T0CON,6
+Warning[203]: Found opcode in column 1. (BSF)
+000028 8AD5           00144 BSF T0CON,5
+Warning[203]: Found opcode in column 1. (BSF)
+00002A 88D5           00145 BSF T0CON,4
+Warning[203]: Found opcode in column 1. (BSF)
+00002C 86D5           00146 BSF T0CON,3
+Warning[203]: Found opcode in column 1. (MOVLW)
+00002E 0EFA           00147 MOVLW D'250'
+Warning[203]: Found opcode in column 1. (MOVWF)
+000030 6ED6           00148 MOVWF TMR0L
+Warning[203]: Found opcode in column 1. (BSF)
+000032 8ED5           00149 BSF T0CON, TMR0ON
+000034 A4F2           00150 AGAIN BTFSS INTCON,TMR0IF 
+Warning[203]: Found opcode in column 1. (BRA)
+000036 D???           00151 BRA AGAIN
+Warning[203]: Found opcode in column 1. (BCF)
+000038 9ED5           00152 BCF T0CON, TMR0ON
+00003A 7281           00153 OVER BTG PORTB, 1
+Warning[203]: Found opcode in column 1. (CALL)
+00003C EC?? F???      00154 CALL DELAY 
+Warning[203]: Found opcode in column 1. (CALL)
+000040 EC?? F???      00155 CALL DELAY 
+Warning[203]: Found opcode in column 1. (GOTO)
+000044 EF?? F???      00156 GOTO OVER
+                      00157 ;this is time delay
+000048                00158 DELAY
+Warning[203]: Found opcode in column 1. (MOVLW)
+000048 0EC8           00159 MOVLW Delay_Value_Outer
+Warning[203]: Found opcode in column 1. (MOVWF)
+00004A 6E??           00160 MOVWF Loops_Left_Outer
+00004C 0EC8           00161 Start_Outer   MOVLW Delay_Value_Inner
+00004E 6E??           00162               MOVWF Loops_Left_Inner
+000050                00163 Start_Inner
+000050 0000           00164               NOP
+000052 0000           00165               NOP
+000054 06??           00166               DECF Loops_Left_Inner,f
+000056 E1??           00167               BNZ Start_Inner
+000058 06??           00168               DECF Loops_Left_Outer,f
+00005A E1??           00169               BNZ Start_Outer
+                      00170           
+Warning[203]: Found opcode in column 1. (Return)
+00005C 0012           00171 Return     
+                      00172 ;       *** main code goes here ***
+                      00173 
+                      00174 
+                      00175 ;******************************************************************************
+                      00176 ;End of program
+                      00177 
+                      00178                 END
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+A                                 00000000
+ABDEN                             00000000
+ABDOVF                            00000007
+ACCESS                            00000000
+ACQT0                             00000003
+ACQT1                             00000004
+ACQT2                             00000005
+ADCON0                            00000FC2
+ADCON1                            00000FC1
+ADCON2                            00000FC0
+ADCS0                             00000000
+ADCS1                             00000001
+ADCS2                             00000002
+ADDEN                             00000003
+ADEN                              00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADIP                              00000006
+ADON                              00000000
+ADRES                             00000FC3
+ADRESH                            00000FC4
+ADRESL                            00000FC3
+AGAIN                             00000034
+AN0                               00000000
+AN1                               00000001
+AN2                               00000004
+AN3                               00000006
+BANKED                            00000001
+BAUDCON                           00000FB8
+BAUDCTL                           00000FB8
+BOR                               00000000
+BRFEN                             00000007
+BRG16                             00000003
+BRGH                              00000002
+BSR                               00000FE0
+BSR_TEMP                          00000002
+C                                 00000000
+C0OUT                             00000005
+C1OUT                             00000006
+C2OUT                             00000007
+CFGS                              00000006
+CHS0                              00000002
+CHS1                              00000003
+CK                                00000002
+CLKI                              00000007
+CLKO                              00000006
+CMCON                             00000FB4
+CMEN0                             00000000
+CMEN1                             00000001
+CMEN2                             00000002
+CMP0                              00000000
+CMP0IE                            00000001
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CMP0IF                            00000001
+CMP0IP                            00000001
+CMP1                              00000003
+CMP1IE                            00000002
+CMP1IF                            00000002
+CMP1IP                            00000002
+CMP2                              00000002
+CMP2IE                            00000003
+CMP2IF                            00000003
+CMP2IP                            00000003
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            00000FB5
+CVREF                             00000004
+CVREN                             00000007
+CVRR                              00000005
+CVRSS                             00000004
+Counts_Left                       00000005
+DC                                00000001
+DDRA                              TRISA
+DDRB                              TRISB
+DDRC                              TRISC
+DDRD                              TRISD
+DDRE                              TRISE
+DELAY                             00000048
+DONE                              00000001
+DT0                               00000000
+DT1                               00000001
+DT2                               00000002
+DT3                               00000003
+DT4                               00000004
+DT5                               00000005
+DTCON                             00000F84
+DTPS0                             00000006
+DTPS1                             00000007
+Delay_Value_Inner                 000000C8
+Delay_Value_Outer                 000000C8
+EEADR                             00000FA9
+EECON1                            00000FA6
+EECON2                            00000FA7
+EEDATA                            00000FA8
+EEIE                              00000004
+EEIF                              00000004
+EEIP                              00000004
+EEPGD                             00000007
+EXAMPLE                           00000000
+FAST                              00000001
+FERR                              00000002
+FLTAEN                            00000000
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+FLTAMOD                           00000001
+FLTAS                             00000002
+FLTCONFIG                         00000F8B
+FLTS                              00000002
+FREE                              00000004
+FSR0                              00000000
+FSR0H                             00000FEA
+FSR0L                             00000FE9
+FSR1                              00000001
+FSR1H                             00000FE2
+FSR1L                             00000FE1
+FSR2                              00000002
+FSR2H                             00000FDA
+FSR2L                             00000FD9
+GIE                               00000007
+GIEH                              00000007
+GIEL                              00000006
+GIE_GIEH                          00000007
+GO                                00000001
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+HighInt                           00000000
+IDLEN                             00000007
+INDF0                             00000FEF
+INDF1                             00000FE7
+INDF2                             00000FDF
+INT0                              00000000
+INT0E                             00000004
+INT0F                             00000001
+INT0IE                            00000004
+INT0IF                            00000001
+INT1                              00000001
+INT1E                             00000003
+INT1F                             00000000
+INT1IE                            00000003
+INT1IF                            00000000
+INT1IP                            00000006
+INT1P                             00000006
+INT2                              00000002
+INT2E                             00000004
+INT2F                             00000001
+INT2IE                            00000004
+INT2IF                            00000001
+INT2IP                            00000007
+INT2P                             00000007
+INT3                              00000003
+INT3E                             00000005
+INT3F                             00000002
+INT3IE                            00000005
+INT3IF                            00000002
+INT3IP                            00000001
+INT3P                             00000001
+INTCON                            00000FF2
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+INTCON2                           00000FF1
+INTCON3                           00000FF0
+INTEDG0                           00000006
+INTEDG1                           00000005
+INTEDG2                           00000004
+INTEDG3                           00000003
+INTSRC                            00000007
+IOFS                              00000002
+IPEN                              00000007
+IPR1                              00000F9F
+IPR2                              00000FA2
+IPR3                              00000FA5
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRVST                             00000005
+IVRST                             00000005
+KBI0                              00000000
+KBI1                              00000001
+KBI2                              00000002
+KBI3                              00000003
+LATA                              00000F89
+LATA0                             00000000
+LATA1                             00000001
+LATA2                             00000002
+LATA3                             00000003
+LATA4                             00000004
+LATA5                             00000005
+LATA6                             00000006
+LATA7                             00000007
+LATB                              00000F8A
+LATB0                             00000000
+LATB1                             00000001
+LATB2                             00000002
+LATB3                             00000003
+LATB4                             00000004
+LATB5                             00000005
+LATB6                             00000006
+LATB7                             00000007
+LVDCON                            00000FD2
+LVDEN                             00000004
+LVDIE                             00000002
+LVDIF                             00000002
+LVDIP                             00000002
+LVDL0                             00000000
+LVDL1                             00000001
+LVDL2                             00000002
+LVDL3                             00000003
+Loops_Left_Inner                  00000003
+Loops_Left_Outer                  00000004
+LowInt                            00000002
+MCLR                              00000005
+Main                              0000001C
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+N                                 00000004
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_MCLR                          00000005
+NOT_PD                            00000002
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RI                            00000004
+NOT_T1SYNC                        00000002
+NOT_TO                            00000003
+OERR                              00000001
+OSC1                              00000007
+OSC2                              00000006
+OSCCON                            00000FD3
+OSCFIE                            00000007
+OSCFIF                            00000007
+OSCFIP                            00000007
+OSCTUNE                           00000F9B
+OSTS                              00000003
+OSYNC                             00000000
+OV                                00000003
+OVDCOND                           00000F83
+OVDCONS                           00000F82
+OVER                              0000003A
+PC                                00000FF9
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000FF9
+PCLATH                            00000FFA
+PCLATU                            00000FFB
+PD                                00000002
+PDC0H                             00000F90
+PDC0L                             00000F91
+PDC1H                             00000F8E
+PDC1L                             00000F8F
+PDC2H                             00000F8C
+PDC2L                             00000F8D
+PEIE                              00000006
+PEIE_GIEL                         00000006
+PGC                               00000006
+PGD                               00000007
+PIE1                              00000F9D
+PIE2                              00000FA0
+PIE3                              00000FA3
+PIR1                              00000F9E
+PIR2                              00000FA1
+PIR3                              00000FA4
+PLLEN                             00000006
+PLUSW0                            00000FEB
+PLUSW1                            00000FE3
+PLUSW2                            00000FDB
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PMOD0                             00000000
+PMOD1                             00000001
+PMOD2                             00000002
+POR                               00000001
+PORTA                             00000F80
+PORTB                             00000F81
+POSTDEC0                          00000FED
+POSTDEC1                          00000FE5
+POSTDEC2                          00000FDD
+POSTINC0                          00000FEE
+POSTINC1                          00000FE6
+POSTINC2                          00000FDE
+POUT0                             00000000
+POUT1                             00000001
+POUT2                             00000002
+POUT3                             00000003
+POUT4                             00000004
+POUT5                             00000005
+POVD0                             00000000
+POVD1                             00000001
+POVD2                             00000002
+POVD3                             00000003
+POVD4                             00000004
+POVD5                             00000005
+PREINC0                           00000FEC
+PREINC1                           00000FE4
+PREINC2                           00000FDC
+PROD                              00000FF3
+PRODH                             00000FF4
+PRODL                             00000FF3
+PSA                               00000003
+PTCKPS0                           00000002
+PTCKPS1                           00000003
+PTCON0                            00000F9A
+PTCON1                            00000F99
+PTDIR                             00000006
+PTEN                              00000007
+PTIE                              00000004
+PTIF                              00000004
+PTIP                              00000004
+PTMOD0                            00000000
+PTMOD1                            00000001
+PTMRH                             00000F97
+PTMRL                             00000F98
+PTOPS0                            00000004
+PTOPS1                            00000005
+PTOPS2                            00000006
+PTOPS3                            00000007
+PTPERH                            00000F95
+PTPERL                            00000F96
+PWM0                              00000000
+PWM1                              00000001
+PWM2                              00000004
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PWM3                              00000005
+PWM4                              00000006
+PWM5                              00000007
+PWMCON0                           00000F86
+PWMCON1                           00000F85
+PWMEN0                            00000004
+PWMEN1                            00000005
+PWMEN2                            00000006
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RBIP                              00000000
+RBPU                              00000007
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCIP                              00000005
+RCMT                              00000006
+RCON                              00000FD0
+RCREG                             00000FAE
+RCSTA                             00000FAB
+RD                                00000000
+RD16                              00000007
+RI                                00000004
+RX                                00000003
+RX9                               00000006
+RX9D                              00000000
+RXDTP                             00000005
+SBOREN                            00000006
+SCKP                              00000004
+SCS0                              00000000
+SCS1                              00000001
+SENDB                             00000003
+SEVOPS0                           00000004
+SEVOPS1                           00000005
+SEVOPS2                           00000006
+SEVOPS3                           00000007
+SEVTCMPH                          00000F87
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SEVTCMPL                          00000F88
+SEVTDIR                           00000003
+SEVTEN                            00000007
+SP0                               00000000
+SP1                               00000001
+SP2                               00000002
+SP3                               00000003
+SP4                               00000004
+SPBRG                             00000FAF
+SPBRGH                            00000FB0
+SPEN                              00000007
+SREN                              00000005
+STATUS                            00000FD8
+STATUS_TEMP                       00000001
+STKFUL                            00000007
+STKOVF                            00000007
+STKPTR                            00000FFC
+STKUNF                            00000006
+SWDTE                             00000000
+SWDTEN                            00000000
+SYNC                              00000004
+Start_Inner                       00000050
+Start_Outer                       0000004C
+T016BIT                           00000006
+T08BIT                            00000006
+T0CKI                             00000004
+T0CON                             00000FD5
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0PS0                             00000000
+T0PS1                             00000001
+T0PS2                             00000002
+T0SE                              00000004
+T1CKI_PORTA                       00000006
+T1CKI_PORTB                       00000002
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000FCD
+T1OSCEN                           00000003
+T1OSI_PORTA                       00000007
+T1OSI_PORTB                       00000003
+T1OSO_PORTA                       00000006
+T1OSO_PORTB                       00000002
+T1RUN                             00000006
+T1SYNC                            00000002
+TABLAT                            00000FF5
+TBLPTR                            00000FF6
+TBLPTRH                           00000FF7
+TBLPTRL                           00000FF6
+TBLPTRU                           00000FF8
+TMR0                              00000FD6
+TMR0H                             00000FD7
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR0IP                            00000002
+TMR0L                             00000FD6
+TMR0ON                            00000007
+TMR1                              00000FCE
+TMR1CS                            00000001
+TMR1H                             00000FCF
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1IP                            00000000
+TMR1L                             00000FCE
+TMR1ON                            00000000
+TO                                00000003
+TOS                               00000FFD
+TOSH                              00000FFE
+TOSL                              00000FFD
+TOSU                              00000FFF
+TRISA                             00000F92
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000F93
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX                                00000002
+TX9                               00000006
+TX9D                              00000000
+TXCKP                             00000004
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXIP                              00000004
+TXREG                             00000FAD
+TXSTA                             00000FAC
+UDIS                              00000001
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+VCFG                              00000004
+VCFG0                             00000004
+VREFP                             00000004
+W                                 00000000
+WDTCON                            00000FD1
+WR                                00000001
+WREG                              00000FE8
+WREG_TEMP                         00000000
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+Z                                 00000002
+_BBSIZ_BB1K_4L                    000000FF
+_BBSIZ_BB256_4L                   000000CF
+_BBSIZ_BB512_4L                   000000DF
+_BORV_0_2L                        000000E7
+_BORV_1_2L                        000000EF
+_BORV_2_2L                        000000F7
+_BORV_3_2L                        000000FF
+_BOR_BOACTIVE_2L                  000000FD
+_BOR_BOHW_2L                      000000FF
+_BOR_OFF_2L                       000000F9
+_BOR_SBORENCTRL_2L                000000FB
+_CONFIG1H                         00300001
+_CONFIG2H                         00300003
+_CONFIG2L                         00300002
+_CONFIG3H                         00300005
+_CONFIG3L                         00300004
+_CONFIG4L                         00300006
+_CONFIG5H                         00300009
+_CONFIG5L                         00300008
+_CONFIG6H                         0030000B
+_CONFIG6L                         0030000A
+_CONFIG7H                         0030000D
+_CONFIG7L                         0030000C
+_CP0_OFF_5L                       000000FF
+_CP0_ON_5L                        000000FE
+_CP1_OFF_5L                       000000FF
+_CP1_ON_5L                        000000FD
+_CPB_OFF_5H                       000000FF
+_CPB_ON_5H                        000000BF
+_CPD_OFF_5H                       000000FF
+_CPD_ON_5H                        0000007F
+_DEBUG_OFF_4L                     000000FF
+_DEBUG_ON_4L                      0000007F
+_DEVID1                           003FFFFE
+_DEVID2                           003FFFFF
+_EBTR0_OFF_7L                     000000FF
+_EBTR0_ON_7L                      000000FE
+_EBTR1_OFF_7L                     000000FF
+_EBTR1_ON_7L                      000000FD
+_EBTRB_OFF_7H                     000000FF
+_EBTRB_ON_7H                      000000BF
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FCMEN_OFF_1H                     000000BF
+_FCMEN_ON_1H                      000000FF
+_FLTAMX_RA5_3H                    000000FF
+_FLTAMX_RA7_3H                    000000FE
+_HPOL_HIGH_3L                     000000FF
+_HPOL_LOW_3L                      000000F7
+_IDLOC0                           00200000
+_IDLOC1                           00200001
+_IDLOC2                           00200002
+_IDLOC3                           00200003
+_IDLOC4                           00200004
+_IDLOC5                           00200005
+_IDLOC6                           00200006
+_IDLOC7                           00200007
+_IESO_OFF_1H                      0000007F
+_IESO_ON_1H                       000000FF
+_LPOL_HIGH_3L                     000000FF
+_LPOL_LOW_3L                      000000FB
+_MCLRE_OFF_3H                     0000007F
+_MCLRE_ON_3H                      000000FF
+_OSC_ECIO_1H                      000000F5
+_OSC_EC_1H                        000000F4
+_OSC_HSPLL_1H                     000000F6
+_OSC_HS_1H                        000000F2
+_OSC_INTIO1_1H                    000000F9
+_OSC_INTIO2_1H                    000000F8
+_OSC_LP_1H                        000000F0
+_OSC_RCIO_1H                      000000F7
+_OSC_RC_1H                        000000F3
+_OSC_XT_1H                        000000F1
+_PWMPIN_OFF_3L                    000000FF
+_PWMPIN_ON_3L                     000000FD
+_PWRT_OFF_2L                      000000FF
+_PWRT_ON_2L                       000000FE
+_STVREN_OFF_4L                    000000FE
+_STVREN_ON_4L                     000000FF
+_T1OSCMX_HIGH_3H                  000000FF
+_T1OSCMX_LOW_3H                   000000F7
+_WDTPS_1024_2H                    000000F5
+_WDTPS_128_2H                     000000EF
+_WDTPS_16384_2H                   000000FD
+_WDTPS_16_2H                      000000E9
+_WDTPS_1_2H                       000000E1
+_WDTPS_2048_2H                    000000F7
+_WDTPS_256_2H                     000000F1
+_WDTPS_2_2H                       000000E3
+_WDTPS_32768_2H                   000000FF
+_WDTPS_32_2H                      000000EB
+_WDTPS_4096_2H                    000000F9
+_WDTPS_4_2H                       000000E5
+_WDTPS_512_2H                     000000F3
+_WDTPS_64_2H                      000000ED
+_WDTPS_8192_2H                    000000FB
+MPASM 5.71                   18F1330TMPO.ASM   2-26-2017  18:18:45         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_WDTPS_8_2H                       000000E7
+_WDT_OFF_2H                       000000FE
+_WDT_ON_2H                        000000FF
+_WRT0_OFF_6L                      000000FF
+_WRT0_ON_6L                       000000FE
+_WRT1_OFF_6L                      000000FF
+_WRT1_ON_6L                       000000FD
+_WRTB_OFF_6H                      000000FF
+_WRTB_ON_6H                       000000BF
+_WRTC_OFF_6H                      000000FF
+_WRTC_ON_6H                       000000DF
+_WRTD_OFF_6H                      000000FF
+_WRTD_ON_6H                       0000007F
+_XINST_OFF_4L                     000000BF
+_XINST_ON_4L                      000000FF
+__18F1330                         00000001
+__DEBUG                           
+__MPLAB_DEBUGGER_ICD3             1
+
+Errors   :     0
+Warnings :    20 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

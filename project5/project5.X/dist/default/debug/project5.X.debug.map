@@ -1,0 +1,65 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Wed Feb 08 12:54:08 2017
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+             RESET_VECTOR       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+            HI_INT_VECTOR       code   0x000008    program   0x000002
+           LOW_INT_VECTOR       code   0x000018    program   0x000002
+                    .code       code   0x00001a    program   0x00003c
+.config_300001_BUILD/DEFAULT/DEBUG/PROJECT5.O    romdata   0x300001    program   0x000001
+              DATA_EEPROM       code   0xf00000    program   0x000010
+               .udata_acs      udata   0x000000       data   0x000001
+                   .udata      udata   0x000080       data   0x000008
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000005      
+                            0x000008    0x000009      
+                            0x000018    0x000055      
+                            0x300001    0x300001      
+                            0xf00000    0xf0000f      
+            87 out of 8344 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                   LowInt   0x00001c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                     Main   0x000036    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 BSR_TEMP   0x000082       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                  EXAMPLE   0x000000       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+              STATUS_TEMP   0x000081       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_1X   0x000083       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_2X   0x000084       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_3X   0x000085       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_4X   0x000086       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_5X   0x000087       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                WREG_TEMP   0x000080       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                   LowInt   0x00001c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                     Main   0x000036    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                  EXAMPLE   0x000000       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                WREG_TEMP   0x000080       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+              STATUS_TEMP   0x000081       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 BSR_TEMP   0x000082       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_1X   0x000083       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_2X   0x000084       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_3X   0x000085       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_4X   0x000086       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+                 Value_5X   0x000087       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\project5\project5.X\project5.ASM
+
+

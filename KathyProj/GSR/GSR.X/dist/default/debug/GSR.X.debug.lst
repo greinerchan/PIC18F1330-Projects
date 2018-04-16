@@ -1,0 +1,374 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.45 build -152302408 
+                                                                                               Tue Mar 20 16:48:49 2018
+
+Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160504
+     1                           	processor	18F1330
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     6                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     7                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     8                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     9                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    10                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    11  0000                     
+    12                           ; Version 1.45
+    13                           ; Generated 16/11/2017 GMT
+    14                           ; 
+    15                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    16                           ; All rights reserved.
+    17                           ; 
+    18                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    19                           ; 
+    20                           ; Redistribution and use in source and binary forms, with or without modification, are
+    21                           ; permitted provided that the following conditions are met:
+    22                           ; 
+    23                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    24                           ;        conditions and the following disclaimer.
+    25                           ; 
+    26                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    27                           ;        of conditions and the following disclaimer in the documentation and/or other
+    28                           ;        materials provided with the distribution.
+    29                           ; 
+    30                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    31                           ;        software without specific prior written permission.
+    32                           ; 
+    33                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    34                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    35                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    36                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    37                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    38                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    39                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    40                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    41                           ; 
+    42                           ; 
+    43                           ; Code-generator required, PIC18F1330 Definitions
+    44                           ; 
+    45                           ; SFR Addresses
+    46  0000                     _ADRESH	set	4036
+    47  0000                     _T0CONbits	set	4053
+    48  0000                     _INTCON2bits	set	4081
+    49  0000                     _INTCONbits	set	4082
+    50  0000                     _ADCON0bits	set	4034
+    51  0000                     _ADCON2bits	set	4032
+    52  0000                     _ADCON1bits	set	4033
+    53  0000                     _PORTBbits	set	3969
+    54  0000                     _TRISAbits	set	3986
+    55  0000                     _TRISBbits	set	3987
+    56                           
+    57                           ; #config settings
+    58  0000                     
+    59                           	psect	cinit
+    60  001F86                     __pcinit:
+    61                           	opt stack 0
+    62  001F86                     start_initialization:
+    63                           	opt stack 0
+    64  001F86                     __initialization:
+    65                           	opt stack 0
+    66                           
+    67                           ; Clear objects allocated to COMRAM (3 bytes)
+    68  001F86  6A03               	clrf	(__pbssCOMRAM+2)& (0+255),c
+    69  001F88  6A02               	clrf	(__pbssCOMRAM+1)& (0+255),c
+    70  001F8A  6A01               	clrf	__pbssCOMRAM& (0+255),c
+    71  001F8C                     end_of_initialization:
+    72                           	opt stack 0
+    73  001F8C                     __end_of__initialization:
+    74                           	opt stack 0
+    75  001F8C  0100               	movlb	0
+    76  001F8E  EFC9  F00F         	goto	_main	;jump to C main() function
+    77                           
+    78                           	psect	bssCOMRAM
+    79  000001                     __pbssCOMRAM:
+    80                           	opt stack 0
+    81  000001                     _sgvar:
+    82                           	opt stack 0
+    83  000001                     	ds	2
+    84  000003                     _result:
+    85                           	opt stack 0
+    86  000003                     	ds	1
+    87                           
+    88                           	psect	cstackCOMRAM
+    89  000000                     __pcstackCOMRAM:
+    90                           	opt stack 0
+    91  000000                     
+    92                           ; 2 bytes @ 0x0
+    93 ;;
+    94 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+    95 ;;
+    96 ;; *************** function _main *****************
+    97 ;; Defined at:
+    98 ;;		line 88 in file "../../../../../../semester 6/ENT 466/GSR1.c"
+    99 ;; Parameters:    Size  Location     Type
+   100 ;;		None
+   101 ;; Auto vars:     Size  Location     Type
+   102 ;;		None
+   103 ;; Return value:  Size  Location     Type
+   104 ;;                  2   34[None  ] int 
+   105 ;; Registers used:
+   106 ;;		wreg, status,2, status,0
+   107 ;; Tracked objects:
+   108 ;;		On entry : 0/0
+   109 ;;		On exit  : 0/0
+   110 ;;		Unchanged: 0/0
+   111 ;; Data sizes:     COMRAM   BANK0
+   112 ;;      Params:         0       0
+   113 ;;      Locals:         0       0
+   114 ;;      Temps:          0       0
+   115 ;;      Totals:         0       0
+   116 ;;Total ram usage:        0 bytes
+   117 ;; This function calls:
+   118 ;;		Nothing
+   119 ;; This function is called by:
+   120 ;;		Startup code after reset
+   121 ;; This function uses a non-reentrant model
+   122 ;;
+   123                           
+   124                           	psect	text0
+   125  001F92                     __ptext0:
+   126                           	opt stack 0
+   127  001F92                     _main:
+   128                           	opt stack 31
+   129                           
+   130                           ;GSR1.c: 99: TRISBbits.TRISB1 = 0;
+   131                           
+   132                           ;incstack = 0
+   133  001F92  9293               	bcf	3987,1,c	;volatile
+   134                           
+   135                           ;GSR1.c: 100: TRISAbits.RA1 = 1;
+   136  001F94  8292               	bsf	3986,1,c	;volatile
+   137                           
+   138                           ;GSR1.c: 103: TRISBbits.RB3 = 0;
+   139  001F96  9693               	bcf	3987,3,c	;volatile
+   140                           
+   141                           ;GSR1.c: 104: TRISBbits.RB1 = 0;
+   142  001F98  9293               	bcf	3987,1,c	;volatile
+   143                           
+   144                           ;GSR1.c: 105: TRISBbits.RB4 = 0;
+   145  001F9A  9893               	bcf	3987,4,c	;volatile
+   146                           
+   147                           ;GSR1.c: 106: PORTBbits.RB3 = 0;
+   148  001F9C  9681               	bcf	3969,3,c	;volatile
+   149                           
+   150                           ;GSR1.c: 107: PORTBbits.RB4 = 0;
+   151  001F9E  9881               	bcf	3969,4,c	;volatile
+   152                           
+   153                           ;GSR1.c: 108: PORTBbits.RB1 = 0;
+   154  001FA0  9281               	bcf	3969,1,c	;volatile
+   155                           
+   156                           ;GSR1.c: 111: ADCON1bits.PCFG1 = 0;
+   157  001FA2  92C1               	bcf	4033,1,c	;volatile
+   158                           
+   159                           ;GSR1.c: 116: ADCON2bits.ADFM = 0;
+   160  001FA4  9EC0               	bcf	4032,7,c	;volatile
+   161                           
+   162                           ;GSR1.c: 117: ADCON1bits.VCFG0 = 0;
+   163  001FA6  98C1               	bcf	4033,4,c	;volatile
+   164                           
+   165                           ;GSR1.c: 119: ADCON0bits.CHS1 = 0;
+   166  001FA8  96C2               	bcf	4034,3,c	;volatile
+   167                           
+   168                           ;GSR1.c: 120: ADCON0bits.CHS0 = 1;
+   169  001FAA  84C2               	bsf	4034,2,c	;volatile
+   170                           
+   171                           ;GSR1.c: 122: ADCON2bits.ACQT2 = 0;
+   172  001FAC  9AC0               	bcf	4032,5,c	;volatile
+   173                           
+   174                           ;GSR1.c: 123: ADCON2bits.ACQT1 = 0;
+   175  001FAE  98C0               	bcf	4032,4,c	;volatile
+   176                           
+   177                           ;GSR1.c: 124: ADCON2bits.ACQT0 = 0;
+   178  001FB0  96C0               	bcf	4032,3,c	;volatile
+   179                           
+   180                           ;GSR1.c: 126: ADCON2bits.ADCS2 = 1;
+   181  001FB2  84C0               	bsf	4032,2,c	;volatile
+   182                           
+   183                           ;GSR1.c: 127: ADCON2bits.ADCS1 = 0;
+   184  001FB4  92C0               	bcf	4032,1,c	;volatile
+   185                           
+   186                           ;GSR1.c: 128: ADCON2bits.ADCS0 = 0;
+   187  001FB6  90C0               	bcf	4032,0,c	;volatile
+   188                           
+   189                           ;GSR1.c: 130: ADCON0bits.ADON = 1;
+   190  001FB8  80C2               	bsf	4034,0,c	;volatile
+   191                           
+   192                           ;GSR1.c: 145: INTCONbits.GIE = 1;
+   193  001FBA  8EF2               	bsf	intcon,7,c	;volatile
+   194                           
+   195                           ;GSR1.c: 146: INTCONbits.INT0E = 1;
+   196  001FBC  88F2               	bsf	intcon,4,c	;volatile
+   197                           
+   198                           ;GSR1.c: 147: INTCON2bits.INTEDG0 = 1;
+   199  001FBE  8CF1               	bsf	intcon2,6,c	;volatile
+   200                           
+   201                           ;GSR1.c: 148: INTCONbits.INT0F = 0;
+   202  001FC0  92F2               	bcf	intcon,1,c	;volatile
+   203                           
+   204                           ;GSR1.c: 150: INTCONbits.PEIE = 1;
+   205  001FC2  8CF2               	bsf	intcon,6,c	;volatile
+   206                           
+   207                           ;GSR1.c: 156: sgvar = 0;
+   208  001FC4  0E00               	movlw	0
+   209  001FC6  6E02               	movwf	_sgvar+1,c
+   210  001FC8  0E00               	movlw	0
+   211  001FCA  6E01               	movwf	_sgvar,c
+   212                           
+   213                           ;GSR1.c: 161: ADCON0bits.GO = 1;
+   214  001FCC  82C2               	bsf	4034,1,c	;volatile
+   215                           
+   216                           ;GSR1.c: 162: while (ADCON0bits.GODONE == 1)
+   217  001FCE  D001               	goto	l35
+   218  001FD0                     l36:
+   219                           
+   220                           ;GSR1.c: 164: T0CONbits.TMR0ON = 0;
+   221  001FD0  9ED5               	bcf	4053,7,c	;volatile
+   222  001FD2                     l35:
+   223  001FD2  B2C2               	btfsc	4034,1,c	;volatile
+   224  001FD4  D7FD               	goto	l36
+   225                           
+   226                           ;GSR1.c: 165: if(ADRESH <= 0x19 )
+   227  001FD6  0E1A               	movlw	26
+   228  001FD8  60C4               	cpfslt	4036,c	;volatile
+   229  001FDA  D001               	goto	l38
+   230                           
+   231                           ;GSR1.c: 166: {PORTBbits.RB1 = 1;}
+   232  001FDC  8281               	bsf	3969,1,c	;volatile
+   233  001FDE                     l38:
+   234                           
+   235                           ;GSR1.c: 171: if (result >= 0x19 && result <= 0x55)
+   236  001FDE  0E18               	movlw	24
+   237  001FE0  6403               	cpfsgt	_result,c
+   238  001FE2  D005               	goto	l39
+   239  001FE4  0E56               	movlw	86
+   240  001FE6  6003               	cpfslt	_result,c
+   241  001FE8  D002               	goto	l39
+   242                           
+   243                           ;GSR1.c: 172: {
+   244                           ;GSR1.c: 175: PORTBbits.RB3 = 1;
+   245  001FEA  8681               	bsf	3969,3,c	;volatile
+   246                           
+   247                           ;GSR1.c: 176: PORTBbits.RB1 = 0;
+   248  001FEC  9281               	bcf	3969,1,c	;volatile
+   249  001FEE                     l39:
+   250                           
+   251                           ;GSR1.c: 177: }
+   252                           ;GSR1.c: 178: if (result >= 0x55)
+   253  001FEE  0E54               	movlw	84
+   254  001FF0  6403               	cpfsgt	_result,c
+   255  001FF2  EF00  F000         	goto	start
+   256                           
+   257                           ;GSR1.c: 179: {
+   258                           ;GSR1.c: 181: PORTBbits.RB3 = 0;
+   259  001FF6  9681               	bcf	3969,3,c	;volatile
+   260                           
+   261                           ;GSR1.c: 182: PORTBbits.RB1 = 0;
+   262  001FF8  9281               	bcf	3969,1,c	;volatile
+   263                           
+   264                           ;GSR1.c: 183: PORTBbits.RB4 = 1;
+   265  001FFA  8881               	bsf	3969,4,c	;volatile
+   266  001FFC  EF00  F000         	goto	start
+   267  002000                     __end_of_main:
+   268                           	opt stack 0
+   269  0000                     intcon	equ	0xFF2
+   270                           intcon2	equ	0xFF1
+   271                           intcon	equ	0xFF2
+   272                           intcon2	equ	0xFF1
+   273                           
+   274                           	psect	rparam
+   275  0000                     intcon	equ	0xFF2
+   276                           intcon2	equ	0xFF1
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         3
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM          127      0       3
+    BANK0           128      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    None.
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 0
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM              FF      0       0       6        0.0%
+EEDATA              80      0       0       0        0.0%
+BITBANK0            80      0       0       3        0.0%
+BANK0               80      0       0       4        0.0%
+BITCOMRAM           7F      0       0       0        0.0%
+COMRAM              7F      0       3       1        2.4%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0       3       5        0.0%
+DATA                 0      0       3       7        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.45 build -152302408 
+Symbol Table                                                                                   Tue Mar 20 16:48:49 2018
+
+                     l35 1FD2                       l36 1FD0                       l38 1FDE  
+                     l39 1FEE              __CFG_BORV$3 000000             __CFG_CP0$OFF 000000  
+           __CFG_CP1$OFF 000000             __CFG_CPB$OFF 000000             __CFG_CPD$OFF 000000  
+           __CFG_WDT$OFF 000000            __CFG_BOR$BOHW 000000                     _main 1F92  
+                   start 0000            __CFG_IESO$OFF 000000            __CFG_MCLRE$ON 000000  
+           ___param_bank 000000                    ?_main 0000            __CFG_PWRT$OFF 000000  
+          __CFG_WRT0$OFF 000000            __CFG_WRT1$OFF 000000           __CFG_EBTR0$OFF 000000  
+         __CFG_FCMEN$OFF 000000           __CFG_EBTR1$OFF 000000            __CFG_WRTB$OFF 000000  
+          __CFG_WRTC$OFF 000000            __CFG_WRTD$OFF 000000           __CFG_EBTRB$OFF 000000  
+                  _sgvar 0001          __initialization 1F86           __CFG_HPOL$HIGH 000000  
+           __end_of_main 2000           __CFG_LPOL$HIGH 000000                   ??_main 0000  
+          __activetblptr 000000                   _ADRESH 000FC4           __CFG_XINST$OFF 000000  
+         __CFG_STVREN$ON 000000                   _result 0003               __accesstop 0080  
+__end_of__initialization 1F8C          __CFG_FLTAMX$RA5 000000            ___rparam_used 000001  
+         __pcstackCOMRAM 0000          __CFG_OSC$INTIO1 000000         __CFG_BBSIZ$BB256 000000  
+        __CFG_PWMPIN$OFF 000000                  __Hparam 0000                  __Lparam 0000  
+                __pcinit 1F86                  __ramtop 0100                  __ptext0 1F92  
+              _T0CONbits 000FD5     end_of_initialization 1F8C                _PORTBbits 000F81  
+              _TRISAbits 000F92                _TRISBbits 000F93         __CFG_T1OSCMX$LOW 000000  
+    start_initialization 1F86              __pbssCOMRAM 0001         __CFG_WDTPS$32768 000000  
+             _ADCON0bits 000FC2               _ADCON1bits 000FC1               _ADCON2bits 000FC0  
+            _INTCON2bits 000FF1                 __Hrparam 0000                 __Lrparam 0000  
+          __size_of_main 006E               _INTCONbits 000FF2  

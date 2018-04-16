@@ -1,0 +1,78 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Mon Feb 27 14:28:02 2017
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+             RESET_VECTOR       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+            HI_INT_VECTOR       code   0x000008    program   0x000002
+           LOW_INT_VECTOR       code   0x000018    program   0x000002
+                    .code       code   0x00001a    program   0x000174
+                    dbgP0       code   0x001e40    program   0x0001c0
+.config_300001_BUILD/DEFAULT/DEBUG/18F1330TMPO.    romdata   0x300001    program   0x000001
+.config_300003_BUILD/DEFAULT/DEBUG/18F1330TMPO.    romdata   0x300003    program   0x000001
+              DATA_EEPROM       code   0xf00000    program   0x000010
+               .udata_acs      udata   0x000000       data   0x000001
+                   .udata      udata   0x000080       data   0x000006
+                    dbgD0      udata   0x0000f4       data   0x00000c
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000005      
+                            0x000008    0x000009      
+                            0x000018    0x00018d      
+                            0x001e40    0x001fff      
+                            0x300001    0x300001      
+                            0x300003    0x300003      
+                            0xf00000    0xf0000f      
+            848 out of 8344 program addresses used, program memory utilization is 10%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      AAA   0x000046    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                    DELAY   0x000178    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                  HighInt   0x00001a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                   LowInt   0x00001c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                     Main   0x000036    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              Start_Inner   0x000180    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              Start_Outer   0x00017c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+        Switch_Not_Pushed   0x00016c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+            Switch_Pushed   0x00004c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                 BSR_TEMP   0x000082       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              Counts_Left   0x000085       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                  EXAMPLE   0x000000       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+         Loops_Left_Inner   0x000083       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+         Loops_Left_Outer   0x000084       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              STATUS_TEMP   0x000081       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                WREG_TEMP   0x000080       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                   LowInt   0x00001c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                     Main   0x000036    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                      AAA   0x000046    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+            Switch_Pushed   0x00004c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+        Switch_Not_Pushed   0x00016c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                    DELAY   0x000178    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              Start_Outer   0x00017c    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              Start_Inner   0x000180    program     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                  EXAMPLE   0x000000       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                WREG_TEMP   0x000080       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              STATUS_TEMP   0x000081       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+                 BSR_TEMP   0x000082       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+         Loops_Left_Inner   0x000083       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+         Loops_Left_Outer   0x000084       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+              Counts_Left   0x000085       data     static C:\Users\boy52\OneDrive\Documents\semester 4\ENT 346\Projects.X\Lab2a\Lab2a.X\18F1330TMPO.ASM
+
+

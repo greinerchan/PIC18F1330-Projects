@@ -1,0 +1,4 @@
+Warning[203] ..\18F1330TMPO.ASM 136 : Found opcode in column 1. (MOVF)
+Warning[203] ..\18F1330TMPO.ASM 137 : Found opcode in column 1. (ADDWF)
+Warning[203] ..\18F1330TMPO.ASM 138 : Found opcode in column 1. (ADDWF)
+Warning[203] ..\18F1330TMPO.ASM 139 : Found opcode in column 1. (MOVWF)

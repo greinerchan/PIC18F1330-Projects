@@ -1,0 +1,65 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Wed Feb 14 10:14:46 2018
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+             RESET_VECTOR       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+            HI_INT_VECTOR       code   0x000008    program   0x000002
+           LOW_INT_VECTOR       code   0x000018    program   0x000002
+                    .code       code   0x00001a    program   0x000028
+.config_300001_BUILD/DEFAULT/DEBUG/_EXT/1672936    romdata   0x300001    program   0x000001
+              DATA_EEPROM       code   0xf00000    program   0x000010
+               .udata_acs      udata   0x000000       data   0x000001
+                   .udata      udata   0x000080       data   0x000008
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000005      
+                            0x000008    0x000009      
+                            0x000018    0x000041      
+                            0x300001    0x300001      
+                            0xf00000    0xf0000f      
+            67 out of 8344 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                   LowInt   0x00001c    program     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                     Main   0x000036    program     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                 BSR_TEMP   0x000082       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                  EXAMPLE   0x000000       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I1   0x000083       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I2   0x000084       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I3   0x000085       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I4   0x000086       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I5   0x000087       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+              STATUS_TEMP   0x000081       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                WREG_TEMP   0x000080       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  HighInt   0x00001a    program     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                   LowInt   0x00001c    program     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                     Main   0x000036    program     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                  EXAMPLE   0x000000       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                WREG_TEMP   0x000080       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+              STATUS_TEMP   0x000081       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                 BSR_TEMP   0x000082       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I1   0x000083       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I2   0x000084       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I3   0x000085       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I4   0x000086       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+                       I5   0x000087       data     static ..\..\..\..\..\..\..\Downloads\code\18F1330TMPO.ASM
+
+

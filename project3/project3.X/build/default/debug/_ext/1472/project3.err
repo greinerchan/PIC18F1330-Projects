@@ -1,0 +1,8 @@
+Warning[203] ..\PROJECT3.ASM 139 : Found opcode in column 1. (MOVF)
+Warning[203] ..\PROJECT3.ASM 140 : Found opcode in column 1. (ADDWF)
+Warning[203] ..\PROJECT3.ASM 141 : Found opcode in column 1. (ADDWF)
+Warning[203] ..\PROJECT3.ASM 142 : Found opcode in column 1. (ADDWF)
+Warning[203] ..\PROJECT3.ASM 143 : Found opcode in column 1. (ADDWF)
+Warning[203] ..\PROJECT3.ASM 144 : Found opcode in column 1. (MOVWF)
+Warning[203] ..\PROJECT3.ASM 145 : Found opcode in column 1. (MOVWF)
+Warning[203] ..\PROJECT3.ASM 146 : Found opcode in column 1. (ADDWF)

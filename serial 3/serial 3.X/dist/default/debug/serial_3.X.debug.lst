@@ -1,0 +1,772 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.41 build -162212810 
+                                                                                               Wed Apr 26 20:20:23 2017
+
+Microchip Technology Omniscient Code Generator v1.41 (Free mode) build 201701250102
+     1                           	processor	18F1330
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	nvCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     8                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     9                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    11                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+    12                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    13                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    14                           	psect	temp,global,ovrld,common,class=COMRAM,space=1,delta=1
+    15  0000                     
+    16                           ; Version 1.41
+    17                           ; Generated 25/01/2017 GMT
+    18                           ; 
+    19                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    20                           ; All rights reserved.
+    21                           ; 
+    22                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    23                           ; 
+    24                           ; Redistribution and use in source and binary forms, with or without modification, are
+    25                           ; permitted provided that the following conditions are met:
+    26                           ; 
+    27                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    28                           ;        conditions and the following disclaimer.
+    29                           ; 
+    30                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    31                           ;        of conditions and the following disclaimer in the documentation and/or other
+    32                           ;        materials provided with the distribution.
+    33                           ; 
+    34                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    35                           ;        software without specific prior written permission.
+    36                           ; 
+    37                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    38                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    39                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    40                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    41                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    42                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    43                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    44                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    45                           ; 
+    46                           ; 
+    47                           ; Code-generator required, PIC18F1330 Definitions
+    48                           ; 
+    49                           ; SFR Addresses
+    50  0000                     
+    51                           	psect	nvCOMRAM
+    52  000023                     __pnvCOMRAM:
+    53                           	opt stack 0
+    54  000023                     _Dummy_Var:
+    55                           	opt stack 0
+    56  000023                     	ds	1
+    57  0000                     _TRISAbits	set	3986
+    58  0000                     _PORTBbits	set	3969
+    59  0000                     _TRISBbits	set	3987
+    60  0000                     _PIE1bits	set	3997
+    61  0000                     _RCSTAbits	set	4011
+    62  0000                     _TXSTAbits	set	4012
+    63  0000                     _BAUDCONbits	set	4024
+    64  0000                     _SPBRG	set	4015
+    65  0000                     _OSCCON	set	4051
+    66  0000                     _RCREG	set	4014
+    67  0000                     _RCIF	set	31989
+    68  0000                     _T0CONbits	set	4053
+    69  0000                     _TMR0L	set	4054
+    70  0000                     _TMR0H	set	4055
+    71  0000                     _INTCONbits	set	4082
+    72  0000                     _TMR0IF	set	32658
+    73                           
+    74                           ; #config settings
+    75  0000                     
+    76                           	psect	cinit
+    77  000168                     __pcinit:
+    78                           	opt stack 0
+    79  000168                     start_initialization:
+    80                           	opt stack 0
+    81  000168                     __initialization:
+    82                           	opt stack 0
+    83                           
+    84                           ; Clear objects allocated to COMRAM (15 bytes)
+    85  000168  EE00  F014         	lfsr	0,__pbssCOMRAM
+    86  00016C  0E0F               	movlw	15
+    87  00016E                     clear_0:
+    88  00016E  6AEE               	clrf	postinc0,c
+    89  000170  06E8               	decf	wreg,f,c
+    90  000172  E1FD               	bnz	clear_0
+    91  000174                     end_of_initialization:
+    92                           	opt stack 0
+    93  000174                     __end_of__initialization:
+    94                           	opt stack 0
+    95  000174  9024               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+    96  000176  9224               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+    97  000178  0100               	movlb	0
+    98  00017A  EF54  F000         	goto	_main	;jump to C main() function
+    99                           postinc0	equ	0xFEE
+   100                           wreg	equ	0xFE8
+   101                           
+   102                           	psect	bssCOMRAM
+   103  000014                     __pbssCOMRAM:
+   104                           	opt stack 0
+   105  000014                     _Got_Byte:
+   106                           	opt stack 0
+   107  000014                     	ds	5
+   108  000019                     _Info_Received:
+   109                           	opt stack 0
+   110  000019                     	ds	1
+   111  00001A                     _Number_Bytes_Received:
+   112                           	opt stack 0
+   113  00001A                     	ds	1
+   114  00001B                     _Get_Header_2:
+   115                           	opt stack 0
+   116  00001B                     	ds	1
+   117  00001C                     _Get_Header:
+   118                           	opt stack 0
+   119  00001C                     	ds	1
+   120  00001D                     _Get_Z_Axis:
+   121                           	opt stack 0
+   122  00001D                     	ds	1
+   123  00001E                     _Get_Y_Axis:
+   124                           	opt stack 0
+   125  00001E                     	ds	1
+   126  00001F                     _Get_X_Axis:
+   127                           	opt stack 0
+   128  00001F                     	ds	1
+   129  000020                     _Z_Axis:
+   130                           	opt stack 0
+   131  000020                     	ds	1
+   132  000021                     _Y_Axis:
+   133                           	opt stack 0
+   134  000021                     	ds	1
+   135  000022                     _X_Axis:
+   136                           	opt stack 0
+   137  000022                     	ds	1
+   138                           postinc0	equ	0xFEE
+   139                           wreg	equ	0xFE8
+   140                           
+   141                           	psect	cstackCOMRAM
+   142  000001                     __pcstackCOMRAM:
+   143                           	opt stack 0
+   144  000001                     ??_Get_Serial:
+   145  000001                     
+   146                           ; 2 bytes @ 0x0
+   147  000001                     	ds	14
+   148  00000F                     Delay_Sec@i2:
+   149                           	opt stack 0
+   150                           
+   151                           ; 2 bytes @ 0xE
+   152  00000F                     	ds	2
+   153  000011                     ??_Delay_Sec:
+   154                           
+   155                           ; 1 bytes @ 0x10
+   156  000011                     	ds	1
+   157  000012                     Delay_Sec@iseconds:
+   158                           	opt stack 0
+   159                           
+   160                           ; 2 bytes @ 0x11
+   161  000012                     	ds	2
+   162  000014                     postinc0	equ	0xFEE
+   163                           wreg	equ	0xFE8
+   164                           
+   165                           ; 1 bytes @ 0x13
+   166 ;;
+   167 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   168 ;;
+   169 ;; *************** function _main *****************
+   170 ;; Defined at:
+   171 ;;		line 134 in file "../../../Receive1ByteLED.c"
+   172 ;; Parameters:    Size  Location     Type
+   173 ;;		None
+   174 ;; Auto vars:     Size  Location     Type
+   175 ;;		None
+   176 ;; Return value:  Size  Location     Type
+   177 ;;                  2   71[None  ] int 
+   178 ;; Registers used:
+   179 ;;		wreg, status,2, status,0, cstack
+   180 ;; Tracked objects:
+   181 ;;		On entry : 0/0
+   182 ;;		On exit  : 0/0
+   183 ;;		Unchanged: 0/0
+   184 ;; Data sizes:     COMRAM   BANK0
+   185 ;;      Params:         0       0
+   186 ;;      Locals:         0       0
+   187 ;;      Temps:          0       0
+   188 ;;      Totals:         0       0
+   189 ;;Total ram usage:        0 bytes
+   190 ;; Hardware stack levels required when called:    2
+   191 ;; This function calls:
+   192 ;;		_Delay_Sec
+   193 ;; This function is called by:
+   194 ;;		Startup code after reset
+   195 ;; This function uses a non-reentrant model
+   196 ;;
+   197                           
+   198                           	psect	text0
+   199  0000A8                     __ptext0:
+   200                           	opt stack 0
+   201  0000A8                     _main:
+   202                           	opt stack 29
+   203                           
+   204                           ;Receive1ByteLED.c: 139: OSCCON = 0x6C;
+   205                           
+   206                           ;incstack = 0
+   207  0000A8  0E6C               	movlw	108
+   208  0000AA  6ED3               	movwf	4051,c	;volatile
+   209                           
+   210                           ;Receive1ByteLED.c: 143: TRISBbits.TRISB5 = 0;
+   211  0000AC  9A93               	bcf	3987,5,c	;volatile
+   212                           
+   213                           ;Receive1ByteLED.c: 144: PORTBbits.RB5 = 0;
+   214  0000AE  9A81               	bcf	3969,5,c	;volatile
+   215                           
+   216                           ;Receive1ByteLED.c: 148: SPBRG = 124;
+   217  0000B0  0E7C               	movlw	124
+   218  0000B2  6EAF               	movwf	4015,c	;volatile
+   219                           
+   220                           ;Receive1ByteLED.c: 149: BAUDCONbits.BRG16 = 0;
+   221  0000B4  96B8               	bcf	4024,3,c	;volatile
+   222                           
+   223                           ;Receive1ByteLED.c: 150: TXSTAbits.BRGH = 0;
+   224  0000B6  94AC               	bcf	4012,2,c	;volatile
+   225                           
+   226                           ;Receive1ByteLED.c: 152: TRISAbits.RA3 = 1;
+   227  0000B8  8692               	bsf	3986,3,c	;volatile
+   228                           
+   229                           ;Receive1ByteLED.c: 156: TXSTAbits.SYNC = 0;
+   230  0000BA  98AC               	bcf	4012,4,c	;volatile
+   231                           
+   232                           ;Receive1ByteLED.c: 160: RCSTAbits.SPEN = 1;
+   233  0000BC  8EAB               	bsf	4011,7,c	;volatile
+   234                           
+   235                           ;Receive1ByteLED.c: 161: RCSTAbits.CREN = 1;
+   236  0000BE  88AB               	bsf	4011,4,c	;volatile
+   237                           
+   238                           ;Receive1ByteLED.c: 166: INTCONbits.GIE = 1;
+   239  0000C0  8EF2               	bsf	intcon,7,c	;volatile
+   240                           
+   241                           ;Receive1ByteLED.c: 167: INTCONbits.PEIE = 1;
+   242  0000C2  8CF2               	bsf	intcon,6,c	;volatile
+   243                           
+   244                           ;Receive1ByteLED.c: 169: PIE1bits.RCIE = 1;
+   245  0000C4  8A9D               	bsf	3997,5,c	;volatile
+   246                           
+   247                           ;Receive1ByteLED.c: 173: Dummy_Var = 1;
+   248  0000C6  0E01               	movlw	1
+   249  0000C8  6E23               	movwf	_Dummy_Var,c
+   250                           
+   251                           ;Receive1ByteLED.c: 177: T0CONbits.T08BIT = 0;
+   252  0000CA  9CD5               	bcf	4053,6,c	;volatile
+   253                           
+   254                           ;Receive1ByteLED.c: 182: T0CONbits.T0CS = 0;
+   255  0000CC  9AD5               	bcf	4053,5,c	;volatile
+   256                           
+   257                           ;Receive1ByteLED.c: 186: T0CONbits.PSA = 0;
+   258  0000CE  96D5               	bcf	4053,3,c	;volatile
+   259                           
+   260                           ;Receive1ByteLED.c: 191: T0CONbits.T0PS2 = 0;
+   261  0000D0  94D5               	bcf	4053,2,c	;volatile
+   262                           
+   263                           ;Receive1ByteLED.c: 192: T0CONbits.T0PS1 = 1;
+   264  0000D2  82D5               	bsf	4053,1,c	;volatile
+   265                           
+   266                           ;Receive1ByteLED.c: 193: T0CONbits.T0PS0 = 0;
+   267  0000D4  90D5               	bcf	4053,0,c	;volatile
+   268  0000D6  D02A               	goto	l820
+   269  0000D8                     l73:
+   270  0000D8  AA9E               	btfss	3998,5,c	;volatile
+   271  0000DA  D7FE               	goto	l73
+   272                           
+   273                           ;Receive1ByteLED.c: 202: Info_Received = RCREG;
+   274  0000DC  CFAE F019          	movff	4014,_Info_Received	;volatile
+   275                           
+   276                           ;Receive1ByteLED.c: 204: if(Info_Received == 0x0F)
+   277  0000E0  0E0F               	movlw	15
+   278  0000E2  1819               	xorwf	_Info_Received,w,c
+   279  0000E4  A4D8               	btfss	status,2,c
+   280  0000E6  D008               	goto	l808
+   281                           
+   282                           ;Receive1ByteLED.c: 205: {
+   283                           ;Receive1ByteLED.c: 206: PORTBbits.RB5 = 1;
+   284  0000E8  8A81               	bsf	3969,5,c	;volatile
+   285                           
+   286                           ;Receive1ByteLED.c: 207: Delay_Sec(3);
+   287  0000EA  0E00               	movlw	0
+   288  0000EC  6E10               	movwf	Delay_Sec@i2+1,c
+   289  0000EE  0E03               	movlw	3
+   290  0000F0  6E0F               	movwf	Delay_Sec@i2,c
+   291  0000F2  EC99  F000         	call	_Delay_Sec	;wreg free
+   292                           
+   293                           ;Receive1ByteLED.c: 208: PORTBbits.RB5 = 0;
+   294  0000F6  9A81               	bcf	3969,5,c	;volatile
+   295  0000F8                     l808:
+   296                           
+   297                           ;Receive1ByteLED.c: 209: }
+   298                           ;Receive1ByteLED.c: 212: if(Info_Received == 0X87)
+   299  0000F8  0E87               	movlw	135
+   300  0000FA  1819               	xorwf	_Info_Received,w,c
+   301  0000FC  A4D8               	btfss	status,2,c
+   302  0000FE  D016               	goto	l820
+   303                           
+   304                           ;Receive1ByteLED.c: 213: {
+   305                           ;Receive1ByteLED.c: 214: PORTBbits.RB5 = 1;
+   306  000100  8A81               	bsf	3969,5,c	;volatile
+   307                           
+   308                           ;Receive1ByteLED.c: 215: Delay_Sec(1);
+   309  000102  0E00               	movlw	0
+   310  000104  6E10               	movwf	Delay_Sec@i2+1,c
+   311  000106  0E01               	movlw	1
+   312  000108  6E0F               	movwf	Delay_Sec@i2,c
+   313  00010A  EC99  F000         	call	_Delay_Sec	;wreg free
+   314                           
+   315                           ;Receive1ByteLED.c: 216: PORTBbits.RB5 = 0;
+   316  00010E  9A81               	bcf	3969,5,c	;volatile
+   317                           
+   318                           ;Receive1ByteLED.c: 217: Delay_Sec(1);
+   319  000110  0E00               	movlw	0
+   320  000112  6E10               	movwf	Delay_Sec@i2+1,c
+   321  000114  0E01               	movlw	1
+   322  000116  6E0F               	movwf	Delay_Sec@i2,c
+   323  000118  EC99  F000         	call	_Delay_Sec	;wreg free
+   324                           
+   325                           ;Receive1ByteLED.c: 218: PORTBbits.RB5 = 1;
+   326  00011C  8A81               	bsf	3969,5,c	;volatile
+   327                           
+   328                           ;Receive1ByteLED.c: 219: Delay_Sec(1);
+   329  00011E  0E00               	movlw	0
+   330  000120  6E10               	movwf	Delay_Sec@i2+1,c
+   331  000122  0E01               	movlw	1
+   332  000124  6E0F               	movwf	Delay_Sec@i2,c
+   333  000126  EC99  F000         	call	_Delay_Sec	;wreg free
+   334                           
+   335                           ;Receive1ByteLED.c: 220: PORTBbits.RB5 = 0;
+   336  00012A  9A81               	bcf	3969,5,c	;volatile
+   337  00012C                     l820:
+   338                           
+   339                           ;Receive1ByteLED.c: 221: }
+   340                           ;Receive1ByteLED.c: 222: RCREG = 0;
+   341  00012C  0E00               	movlw	0
+   342  00012E  6EAE               	movwf	4014,c	;volatile
+   343  000130  D7D3               	goto	l73
+   344  000132                     __end_of_main:
+   345                           	opt stack 0
+   346                           intcon	equ	0xFF2
+   347                           postinc0	equ	0xFEE
+   348                           wreg	equ	0xFE8
+   349                           status	equ	0xFD8
+   350                           
+   351 ;; *************** function _Delay_Sec *****************
+   352 ;; Defined at:
+   353 ;;		line 80 in file "../../../Receive1ByteLED.c"
+   354 ;; Parameters:    Size  Location     Type
+   355 ;;  i2              2   14[COMRAM] int 
+   356 ;; Auto vars:     Size  Location     Type
+   357 ;;  iseconds        2   17[COMRAM] int 
+   358 ;; Return value:  Size  Location     Type
+   359 ;;                  1    wreg      void 
+   360 ;; Registers used:
+   361 ;;		wreg, status,2, status,0
+   362 ;; Tracked objects:
+   363 ;;		On entry : 0/0
+   364 ;;		On exit  : 0/0
+   365 ;;		Unchanged: 0/0
+   366 ;; Data sizes:     COMRAM   BANK0
+   367 ;;      Params:         2       0
+   368 ;;      Locals:         2       0
+   369 ;;      Temps:          1       0
+   370 ;;      Totals:         5       0
+   371 ;;Total ram usage:        5 bytes
+   372 ;; Hardware stack levels used:    1
+   373 ;; Hardware stack levels required when called:    1
+   374 ;; This function calls:
+   375 ;;		Nothing
+   376 ;; This function is called by:
+   377 ;;		_main
+   378 ;; This function uses a non-reentrant model
+   379 ;;
+   380                           
+   381                           	psect	text1
+   382  000132                     __ptext1:
+   383                           	opt stack 0
+   384  000132                     _Delay_Sec:
+   385                           	opt stack 29
+   386                           
+   387                           ;Receive1ByteLED.c: 82: int iseconds;
+   388                           ;Receive1ByteLED.c: 84: for (iseconds = 0; iseconds < i2; iseconds++)
+   389                           
+   390                           ;incstack = 0
+   391  000132  0E00               	movlw	0
+   392  000134  6E13               	movwf	Delay_Sec@iseconds+1,c
+   393  000136  0E00               	movlw	0
+   394  000138  6E12               	movwf	Delay_Sec@iseconds,c
+   395  00013A  D00B               	goto	l762
+   396  00013C                     l60:
+   397                           
+   398                           ;Receive1ByteLED.c: 85: {
+   399                           ;Receive1ByteLED.c: 89: INTCONbits.TMR0IF = 0;
+   400  00013C  94F2               	bcf	intcon,2,c	;volatile
+   401                           
+   402                           ;Receive1ByteLED.c: 98: TMR0H = 0x85;
+   403  00013E  0E85               	movlw	133
+   404  000140  6ED7               	movwf	4055,c	;volatile
+   405                           
+   406                           ;Receive1ByteLED.c: 99: TMR0L = 0xED;
+   407  000142  0EED               	movlw	237
+   408  000144  6ED6               	movwf	4054,c	;volatile
+   409                           
+   410                           ;Receive1ByteLED.c: 103: T0CONbits.TMR0ON = 1;
+   411  000146  8ED5               	bsf	4053,7,c	;volatile
+   412  000148                     l61:
+   413  000148  A4F2               	btfss	intcon,2,c	;volatile
+   414  00014A  D7FE               	goto	l61
+   415                           
+   416                           ;Receive1ByteLED.c: 110: }
+   417                           ;Receive1ByteLED.c: 113: T0CONbits.TMR0ON = 0;
+   418  00014C  9ED5               	bcf	4053,7,c	;volatile
+   419  00014E  4A12               	infsnz	Delay_Sec@iseconds,f,c
+   420  000150  2A13               	incf	Delay_Sec@iseconds+1,f,c
+   421  000152                     l762:
+   422  000152  500F               	movf	Delay_Sec@i2,w,c
+   423  000154  5C12               	subwf	Delay_Sec@iseconds,w,c
+   424  000156  5013               	movf	Delay_Sec@iseconds+1,w,c
+   425  000158  0A80               	xorlw	128
+   426  00015A  6E11               	movwf	??_Delay_Sec& (0+255),c
+   427  00015C  5010               	movf	Delay_Sec@i2+1,w,c
+   428  00015E  0A80               	xorlw	128
+   429  000160  5811               	subwfb	??_Delay_Sec& (0+255),w,c
+   430  000162  B0D8               	btfsc	status,0,c
+   431  000164  0012               	return	
+   432  000166  D7EA               	goto	l60
+   433  000168                     __end_of_Delay_Sec:
+   434                           	opt stack 0
+   435                           intcon	equ	0xFF2
+   436                           postinc0	equ	0xFEE
+   437                           wreg	equ	0xFE8
+   438                           status	equ	0xFD8
+   439                           
+   440 ;; *************** function _Get_Serial *****************
+   441 ;; Defined at:
+   442 ;;		line 119 in file "../../../Receive1ByteLED.c"
+   443 ;; Parameters:    Size  Location     Type
+   444 ;;		None
+   445 ;; Auto vars:     Size  Location     Type
+   446 ;;		None
+   447 ;; Return value:  Size  Location     Type
+   448 ;;                  1    wreg      void 
+   449 ;; Registers used:
+   450 ;;		wreg, fsr2l, fsr2h, status,2, status,0, prodl, prodh
+   451 ;; Tracked objects:
+   452 ;;		On entry : 0/0
+   453 ;;		On exit  : 0/0
+   454 ;;		Unchanged: 0/0
+   455 ;; Data sizes:     COMRAM   BANK0
+   456 ;;      Params:         0       0
+   457 ;;      Locals:         0       0
+   458 ;;      Temps:         14       0
+   459 ;;      Totals:        14       0
+   460 ;;Total ram usage:       14 bytes
+   461 ;; Hardware stack levels used:    1
+   462 ;; This function calls:
+   463 ;;		Nothing
+   464 ;; This function is called by:
+   465 ;;		Interrupt level 2
+   466 ;; This function uses a non-reentrant model
+   467 ;;
+   468                           
+   469                           	psect	intcode
+   470  000008                     __pintcode:
+   471                           	opt stack 0
+   472  000008                     _Get_Serial:
+   473                           	opt stack 29
+   474                           
+   475                           ;incstack = 0
+   476  000008  8224               	bsf	btemp,1,c	;set compiler interrupt flag (level 2)
+   477  00000A  CFFA F001          	movff	pclath,??_Get_Serial
+   478  00000E  CFFB F002          	movff	pclatu,??_Get_Serial+1
+   479  000012  CFE9 F003          	movff	fsr0l,??_Get_Serial+2
+   480  000016  CFEA F004          	movff	fsr0h,??_Get_Serial+3
+   481  00001A  CFE1 F005          	movff	fsr1l,??_Get_Serial+4
+   482  00001E  CFE2 F006          	movff	fsr1h,??_Get_Serial+5
+   483  000022  CFD9 F007          	movff	fsr2l,??_Get_Serial+6
+   484  000026  CFDA F008          	movff	fsr2h,??_Get_Serial+7
+   485  00002A  CFF3 F009          	movff	prodl,??_Get_Serial+8
+   486  00002E  CFF4 F00A          	movff	prodh,??_Get_Serial+9
+   487  000032  CFF6 F00B          	movff	tblptrl,??_Get_Serial+10
+   488  000036  CFF7 F00C          	movff	tblptrh,??_Get_Serial+11
+   489  00003A  CFF8 F00D          	movff	tblptru,??_Get_Serial+12
+   490  00003E  CFF5 F00E          	movff	tablat,??_Get_Serial+13
+   491                           
+   492                           ;Receive1ByteLED.c: 121: Number_Bytes_Received++;
+   493  000042  2A1A               	incf	_Number_Bytes_Received,f,c
+   494                           
+   495                           ;Receive1ByteLED.c: 122: Got_Byte[Number_Bytes_Received]=RCREG;
+   496  000044  501A               	movf	_Number_Bytes_Received,w,c
+   497  000046  0D01               	mullw	1
+   498  000048  0E14               	movlw	low _Got_Byte
+   499  00004A  24F3               	addwf	prodl,w,c
+   500  00004C  6ED9               	movwf	fsr2l,c
+   501  00004E  0E00               	movlw	high _Got_Byte
+   502  000050  20F4               	addwfc	prodh,w,c
+   503  000052  6EDA               	movwf	fsr2h,c
+   504  000054  CFAE FFDF          	movff	4014,indf2	;volatile
+   505                           
+   506                           ;Receive1ByteLED.c: 124: if(Number_Bytes_Received == 4)
+   507  000058  0E04               	movlw	4
+   508  00005A  181A               	xorwf	_Number_Bytes_Received,w,c
+   509  00005C  A4D8               	btfss	status,2,c
+   510  00005E  D002               	goto	i2l68
+   511                           
+   512                           ;Receive1ByteLED.c: 125: {
+   513                           ;Receive1ByteLED.c: 126: Dummy_Var = 43;
+   514  000060  0E2B               	movlw	43
+   515  000062  6E23               	movwf	_Dummy_Var,c
+   516  000064                     i2l68:
+   517                           
+   518                           ;Receive1ByteLED.c: 127: }
+   519                           ;Receive1ByteLED.c: 128: Dummy_Var = 7;
+   520  000064  0E07               	movlw	7
+   521  000066  6E23               	movwf	_Dummy_Var,c
+   522  000068  C00E  FFF5         	movff	??_Get_Serial+13,tablat
+   523  00006C  C00D  FFF8         	movff	??_Get_Serial+12,tblptru
+   524  000070  C00C  FFF7         	movff	??_Get_Serial+11,tblptrh
+   525  000074  C00B  FFF6         	movff	??_Get_Serial+10,tblptrl
+   526  000078  C00A  FFF4         	movff	??_Get_Serial+9,prodh
+   527  00007C  C009  FFF3         	movff	??_Get_Serial+8,prodl
+   528  000080  C008  FFDA         	movff	??_Get_Serial+7,fsr2h
+   529  000084  C007  FFD9         	movff	??_Get_Serial+6,fsr2l
+   530  000088  C006  FFE2         	movff	??_Get_Serial+5,fsr1h
+   531  00008C  C005  FFE1         	movff	??_Get_Serial+4,fsr1l
+   532  000090  C004  FFEA         	movff	??_Get_Serial+3,fsr0h
+   533  000094  C003  FFE9         	movff	??_Get_Serial+2,fsr0l
+   534  000098  C002  FFFB         	movff	??_Get_Serial+1,pclatu
+   535  00009C  C001  FFFA         	movff	??_Get_Serial,pclath
+   536  0000A0  9224               	bcf	btemp,1,c	;clear compiler interrupt flag (level 2)
+   537  0000A2  0011               	retfie		f
+   538  0000A4                     __end_of_Get_Serial:
+   539                           	opt stack 0
+   540  0000                     pclatu	equ	0xFFB
+   541                           pclath	equ	0xFFA
+   542                           tblptru	equ	0xFF8
+   543                           tblptrh	equ	0xFF7
+   544                           tblptrl	equ	0xFF6
+   545                           tablat	equ	0xFF5
+   546                           prodh	equ	0xFF4
+   547                           prodl	equ	0xFF3
+   548                           intcon	equ	0xFF2
+   549                           postinc0	equ	0xFEE
+   550                           fsr0h	equ	0xFEA
+   551                           fsr0l	equ	0xFE9
+   552                           wreg	equ	0xFE8
+   553                           fsr1h	equ	0xFE2
+   554                           fsr1l	equ	0xFE1
+   555                           indf2	equ	0xFDF
+   556                           fsr2h	equ	0xFDA
+   557                           fsr2l	equ	0xFD9
+   558                           status	equ	0xFD8
+   559                           pclatu	equ	0xFFB
+   560                           pclath	equ	0xFFA
+   561                           tblptru	equ	0xFF8
+   562                           tblptrh	equ	0xFF7
+   563                           tblptrl	equ	0xFF6
+   564                           tablat	equ	0xFF5
+   565                           prodh	equ	0xFF4
+   566                           prodl	equ	0xFF3
+   567                           intcon	equ	0xFF2
+   568                           postinc0	equ	0xFEE
+   569                           fsr0h	equ	0xFEA
+   570                           fsr0l	equ	0xFE9
+   571                           wreg	equ	0xFE8
+   572                           fsr1h	equ	0xFE2
+   573                           fsr1l	equ	0xFE1
+   574                           indf2	equ	0xFDF
+   575                           fsr2h	equ	0xFDA
+   576                           fsr2l	equ	0xFD9
+   577                           status	equ	0xFD8
+   578                           
+   579                           	psect	rparam
+   580  0000                     pclatu	equ	0xFFB
+   581                           pclath	equ	0xFFA
+   582                           tblptru	equ	0xFF8
+   583                           tblptrh	equ	0xFF7
+   584                           tblptrl	equ	0xFF6
+   585                           tablat	equ	0xFF5
+   586                           prodh	equ	0xFF4
+   587                           prodl	equ	0xFF3
+   588                           intcon	equ	0xFF2
+   589                           postinc0	equ	0xFEE
+   590                           fsr0h	equ	0xFEA
+   591                           fsr0l	equ	0xFE9
+   592                           wreg	equ	0xFE8
+   593                           fsr1h	equ	0xFE2
+   594                           fsr1l	equ	0xFE1
+   595                           indf2	equ	0xFDF
+   596                           fsr2h	equ	0xFDA
+   597                           fsr2l	equ	0xFD9
+   598                           status	equ	0xFD8
+   599                           
+   600                           	psect	temp
+   601  000024                     btemp:
+   602                           	opt stack 0
+   603  000024                     	ds	1
+   604  0000                     int$flags	set	btemp
+   605                           pclatu	equ	0xFFB
+   606                           pclath	equ	0xFFA
+   607                           tblptru	equ	0xFF8
+   608                           tblptrh	equ	0xFF7
+   609                           tblptrl	equ	0xFF6
+   610                           tablat	equ	0xFF5
+   611                           prodh	equ	0xFF4
+   612                           prodl	equ	0xFF3
+   613                           intcon	equ	0xFF2
+   614                           postinc0	equ	0xFEE
+   615                           fsr0h	equ	0xFEA
+   616                           fsr0l	equ	0xFE9
+   617                           wreg	equ	0xFE8
+   618                           fsr1h	equ	0xFE2
+   619                           fsr1l	equ	0xFE1
+   620                           indf2	equ	0xFDF
+   621                           fsr2h	equ	0xFDA
+   622                           fsr2l	equ	0xFD9
+   623                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         15
+    Persistent  1
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM          126     19      35
+    BANK0           116      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_Delay_Sec
+
+Critical Paths under _Get_Serial in COMRAM
+
+    None.
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _Get_Serial in BANK0
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0     218
+                          _Delay_Sec
+ ---------------------------------------------------------------------------------
+ (1) _Delay_Sec                                            5     3      2     218
+                                             14 COMRAM     5     3      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (2) _Get_Serial                                          14    14      0       0
+                                              0 COMRAM    14    14      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _Delay_Sec
+
+ _Get_Serial (ROOT)
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM              F3      0       0       6        0.0%
+EEDATA              80      0       0       0        0.0%
+BITCOMRAM           7E      0       0       0        0.0%
+COMRAM              7E     13      23       1       27.8%
+BITBANK0            74      0       0       3        0.0%
+BANK0               74      0       0       4        0.0%
+BITSFR_5             0      0       0     200        0.0%
+SFR_5                0      0       0     200        0.0%
+BITSFR_4             0      0       0     200        0.0%
+SFR_4                0      0       0     200        0.0%
+BITSFR_3             0      0       0     200        0.0%
+SFR_3                0      0       0     200        0.0%
+BITSFR_2             0      0       0     200        0.0%
+SFR_2                0      0       0     200        0.0%
+BITSFR_1             0      0       0     200        0.0%
+SFR_1                0      0       0     200        0.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      23       5        0.0%
+DATA                 0      0      23       7        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.41 build -162212810 
+Symbol Table                                                                                   Wed Apr 26 20:20:23 2017
+
+                     l60 013C                       l61 0148                       l73 00D8  
+            __CFG_BORV$3 000000             __CFG_CP0$OFF 000000             __CFG_CP1$OFF 000000  
+                    l820 012C                      l808 00F8                      l762 0152  
+           __CFG_CPB$OFF 000000             __CFG_CPD$OFF 000000                      prod 000FF3  
+                    wreg 000FE8             __CFG_WDT$OFF 000000                     _RCIF 007CF5  
+                   i2l68 0064            __CFG_BOR$BOHW 000000                     _main 00A8  
+                   fsr0h 000FEA                     fsr1h 000FE2                     fsr2h 000FDA  
+                   fsr0l 000FE9                     indf2 000FDF                     fsr1l 000FE1  
+                   fsr2l 000FD9                     btemp 0024                     prodh 000FF4  
+                   prodl 000FF3                     start 00A4            __CFG_IESO$OFF 000000  
+          __CFG_MCLRE$ON 000000             ___param_bank 000000               _Get_Header 001C  
+             _Get_X_Axis 001F               _Get_Y_Axis 001E               _Get_Z_Axis 001D  
+             _Get_Serial 0008                    ?_main 0001                    _RCREG 000FAE  
+                  _TMR0H 000FD7                    _TMR0L 000FD6                    _SPBRG 000FAF  
+          __CFG_PWRT$OFF 000000            __CFG_WRT0$OFF 000000            __CFG_WRT1$OFF 000000  
+         __CFG_EBTR0$OFF 000000           __CFG_FCMEN$OFF 000000           __CFG_EBTR1$OFF 000000  
+          __CFG_WRTB$OFF 000000            __CFG_WRTC$OFF 000000            __CFG_WRTD$OFF 000000  
+         __CFG_EBTRB$OFF 000000                    pclath 000FFA                    tablat 000FF5  
+                  status 000FD8          __initialization 0168           __CFG_HPOL$HIGH 000000  
+           __end_of_main 0132       __size_of_Delay_Sec 0036           __CFG_LPOL$HIGH 000000  
+                 ??_main 0014            __activetblptr 000000                   _OSCCON 000FD3  
+                 _TMR0IF 007F92                   _X_Axis 0022                   _Y_Axis 0021  
+                 _Z_Axis 0020           __CFG_XINST$OFF 000000           __CFG_STVREN$ON 000000  
+                 clear_0 016E              ?_Get_Serial 0001                   tblptrh 000FF7  
+                 tblptrl 000FF6                   tblptru 000FF8        __end_of_Delay_Sec 0168  
+             __accesstop 0080  __end_of__initialization 0174          __CFG_FLTAMX$RA5 000000  
+          ___rparam_used 000001           __pcstackCOMRAM 0001             _Get_Header_2 001B  
+        __CFG_OSC$INTIO1 000000      __size_of_Get_Serial 009C               __pnvCOMRAM 0023  
+       __CFG_BBSIZ$BB256 000000          __CFG_PWMPIN$OFF 000000                  __Hparam 0000  
+                __Lparam 0000                  __pcinit 0168                  __ramtop 0100  
+                __ptext0 00A8                  __ptext1 0132                _T0CONbits 000FD5  
+      Delay_Sec@iseconds 0012     end_of_initialization 0174                _RCSTAbits 000FAB  
+                postinc0 000FEE             ??_Get_Serial 0001                _PORTBbits 000F81  
+              _TRISAbits 000F92                _TRISBbits 000F93                _TXSTAbits 000FAC  
+     __end_of_Get_Serial 00A4         __CFG_T1OSCMX$LOW 000000                _Delay_Sec 0132  
+            _BAUDCONbits 000FB8      start_initialization 0168                _Dummy_Var 0023  
+             ?_Delay_Sec 000F    _Number_Bytes_Received 001A              __pbssCOMRAM 0014  
+              __pintcode 0008                 _PIE1bits 000F9D              ??_Delay_Sec 0011  
+       __CFG_WDTPS$32768 000000                 _Got_Byte 0014              Delay_Sec@i2 000F  
+               __Hrparam 0000                 __Lrparam 0000            __size_of_main 008A  
+               int$flags 0024               _INTCONbits 000FF2                 intlevel2 0000  
+          _Info_Received 0019  
